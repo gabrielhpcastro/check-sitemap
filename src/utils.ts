@@ -2,17 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import {XMLParser} from 'fast-xml-parser'
 import merge from 'deepmerge'
-
-interface Sitemap {
-    urlset: {
-        url: SitemapURL[]
-    }
-}
-
-interface SitemapURL {
-    loc: string,
-    lastmod?: string
-}
+import { Sitemap, SitemapURL } from './types'
 
 export function loadXMLFile(filepath: string): Sitemap {
     const fileContent: string = fs.readFileSync(filepath, 'utf-8')
@@ -43,4 +33,8 @@ export function findMissingURLs(referenceUrls: SitemapURL[], checkUrls: SitemapU
     })
 
     return missingUrls
+}
+
+export function saveLogFile(data: Record<string, unknown>): void {
+    fs.writeFileSync('./src/checklog.json', JSON.stringify(data, null, 2), 'utf-8')
 }
