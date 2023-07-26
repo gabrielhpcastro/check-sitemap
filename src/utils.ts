@@ -6,7 +6,7 @@ import { Sitemap, SitemapURL } from './types'
 
 export function loadXMLFile(filepath: string): Sitemap {
     const fileContent: string = fs.readFileSync(filepath, 'utf-8')
-    const parser = new XMLParser()
+    const parser = new XMLParser({ignoreAttributes: false})
     return parser.parse(fileContent)
 }
 
