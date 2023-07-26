@@ -20,8 +20,8 @@ function run() {
     const checkSitemaps = mergeMultipleSitemaps(CHECK_SITEMAPS_PATH, CHECK_SITEMAPS_NAMES)
     
     console.log('\n## Sitemaps loaded')
-    console.log(`   Reference has ${referenceSitemap.urlset.url.length} urls`)
-    console.log(`   Check has ${checkSitemaps.urlset.url.length} urls`)
+    console.log(`   Reference sitemap has ${referenceSitemap.urlset.url.length} urls`)
+    console.log(`   New sitemaps have ${checkSitemaps.urlset.url.length} urls`)
 
     // ***** CHECK STEP *****
     console.log('\n## Checking URLs')
