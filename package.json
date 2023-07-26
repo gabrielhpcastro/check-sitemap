@@ -1,0 +1,21 @@
+{
+  "name": "check-sitemap",
+  "version": "1.0.0",
+  "description": "Check two sitemaps against each other to see if they contain the same urls",
+  "main": "src/index.ts",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "check": "ts-node ./src/index.ts"
+  },
+  "dependencies": {
+    "deepmerge": "^4.3.1",
+    "fast-xml-parser": "^4.2.6",
+    "ts-node": "^10.9.1"
+  },
+  "devDependencies": {
+    "@types/deepmerge": "^2.2.0",
+    "@types/node": "^20.4.5",
+    "typescript": "^5.1.6"
+  }
+}
