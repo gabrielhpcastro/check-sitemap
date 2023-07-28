@@ -22,7 +22,7 @@ yarn check:url
 
 An example of the script response:
 
-```bash
+```
 ## Loading sitemaps
 
 ## Sitemaps loaded
@@ -65,7 +65,7 @@ yarn check:alternate
 
 An example of the script response:
 
-```bash
+```
 ## Loading sitemaps
 
 ## Sitemaps loaded
