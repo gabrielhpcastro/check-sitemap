@@ -1,7 +1,7 @@
 {
   "name": "check-sitemap",
   "version": "1.0.0",
-  "description": "Check two sitemaps against each other to see if they contain the same urls",
+  "description": "Contain scripts for checking sitemap files health",
   "main": "src/index.ts",
   "license": "MIT",
   "private": true,
