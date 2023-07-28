@@ -1,4 +1,4 @@
-import { loadXMLFile, mergeMultipleSitemaps, findMissingURLs, saveLogFile } from './utils'
+import { loadXMLFile, mergeMultipleSitemaps, findMissingURLs, saveLogFile, normalizeUrls } from './utils'
 
 const REFERENCE_SITEMAP_PATH = './src/sitemaps/sitemap-pages.xml' as const
 const CHECK_SITEMAPS_PATH = './src/sitemaps' as const
@@ -23,27 +23,37 @@ function run() {
     console.log(`   Reference sitemap has ${referenceSitemap.urlset.url.length} urls`)
     console.log(`   New sitemaps have ${checkSitemaps.urlset.url.length} urls`)
 
+    // ***** NORMALIZE_STEP *****
+    // This step makes sure all URLs are ending in a / for the comparison function
+    // to work properly
+    console.log('\n## Normalizing URLs')
+
+    const normalizedReferenceUrls = normalizeUrls(referenceSitemap.urlset.url)
+    const normalizedCheckUrls = normalizeUrls(checkSitemaps.urlset.url)
+
+    console.log('\n## URLs normalized')
+
     // ***** CHECK STEP *****
     console.log('\n## Checking URLs')
     
-    const missingURLs = findMissingURLs(referenceSitemap.urlset.url, checkSitemaps.urlset.url)
-    const extraURLs = findMissingURLs(checkSitemaps.urlset.url, referenceSitemap.urlset.url)
+    const missingURLs = findMissingURLs(normalizedReferenceUrls, normalizedCheckUrls)
+    const extraURLs = findMissingURLs(normalizedCheckUrls, normalizedReferenceUrls)
 
     console.log('\n## URLs checked')
     console.log(`   ${missingURLs.length} urls in the reference are missing in the new sitemaps`)
     console.log(`   ${extraURLs.length} urls in the new sitemaps are not in the reference`)
 
     // ***** SAVE STEP *****
-    console.log('\n## Generating checklog.json file')
+    console.log('\n## Generating log file')
 
-    saveLogFile({
+    saveLogFile('url_check', {
         referenceUrls: referenceSitemap.urlset.url,
         newUrls: checkSitemaps.urlset.url,
         missingUrls: missingURLs,
         extraUrls: extraURLs,
     })
 
-    console.log('\n## checklog.json file saved')
+    console.log('\n## url_check_log.json file saved')
 
     console.log('\n## Finished script')
 }

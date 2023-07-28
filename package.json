@@ -6,7 +6,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "check": "ts-node ./src/index.ts"
+    "check:url": "ts-node ./src/url_check.ts",
+    "check:alternate": "ts-node ./src/alternate_check.ts"
   },
   "dependencies": {
     "deepmerge": "^4.3.1",

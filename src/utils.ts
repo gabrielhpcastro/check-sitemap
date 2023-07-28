@@ -21,6 +21,13 @@ export function mergeMultipleSitemaps(filepath: string, filenames: readonly stri
     return mergedSitemap
 }
 
+export function normalizeUrls(urls: SitemapURL[]): SitemapURL[] {
+    return urls.map(url => ({
+        ...url,
+        loc: /\/$/.test(url.loc) ? url.loc : `${url.loc}/` 
+    }))
+}
+
 export function findMissingURLs(referenceUrls: SitemapURL[], checkUrls: SitemapURL[]): SitemapURL[] {
     const missingUrls: SitemapURL[] = []
 
@@ -35,6 +42,10 @@ export function findMissingURLs(referenceUrls: SitemapURL[], checkUrls: SitemapU
     return missingUrls
 }
 
-export function saveLogFile(data: Record<string, unknown>): void {
-    fs.writeFileSync('./src/checklog.json', JSON.stringify(data, null, 2), 'utf-8')
+export function saveLogFile(logname: string, data: Record<string, unknown>): void {
+    fs.writeFileSync(`./src/logs/${logname}_log.json`, JSON.stringify(data, null, 2), 'utf-8')
+}
+
+export function checkAlternatesQuantity(urls: SitemapURL[], maxAlternates: number): SitemapURL[] {
+    return urls.filter(url => (url['xhtml:link']?.length ?? 0) > maxAlternates)
 }
